@@ -50,7 +50,6 @@ class webserver {
 		
 		bool isFinished(int currTime) {
 			if ((startTime + req.timeToProcess) <= currTime) {
-				//full = false;
 				return true;
 			}
 			return false;
@@ -60,5 +59,9 @@ class webserver {
 			req = currReq;
 			full = true;
 			startTime = currTime;
+		}
+		
+		void clearRequest() {
+			full = false;
 		}
 };
