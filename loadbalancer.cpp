@@ -92,6 +92,7 @@ int main(int argc, char *argv[]) {
 	
 	int count = 0; // Used for initial population of webservers
 	int countProcessed = 0; // Used to track number of processed requests
+	int countRandom = 0; // Used to track number of randomly created/ added requests
 	while ((!requestqueue.isEmpty()) && (requestqueue.getTime() < time_to_run)) {
 		if (count < num_servers) {
 			servers[count].addRequest(requestqueue.getRequest(), requestqueue.getTime());
@@ -113,6 +114,24 @@ int main(int argc, char *argv[]) {
 			
 			requestqueue.passTime();
 		}
+		
+		if ((rand() % 30) == 15) {
+			countRandom++;
+			int rand1 = rand() % 100;
+			int rand2 = rand() % 100;
+			int rand3 = rand() % 100;
+			int rand4 = rand() % 100;
+			string ip1 = to_string(rand1) + "." + to_string(rand2) + "." + to_string(rand3) + "." + to_string(rand4);
+			int rand5 = rand() % 100;
+			int rand6 = rand() % 100;
+			int rand7 = rand() % 100;
+			int rand8 = rand() % 100;
+			int randTimeToRun = rand() % 1000 + 1;
+			string ip2 = to_string(rand5) + "." + to_string(rand6) + "." + to_string(rand7) + "." + to_string(rand8);
+			request temp_request = {ip1, ip2, randTimeToRun};
+			requestqueue.addRequest(temp_request);
+			cout << "Added random request. Total number of requests now: " << countRandom + num_requests << endl;
+			}
 	}
 	
 	cout << endl << "Current requests processed and completed: " << countProcessed << endl;
@@ -147,10 +166,10 @@ int main(int argc, char *argv[]) {
 	
 	cout << endl << "Total requests processed and completed: " << countProcessed << endl;
 	
-	if ((countProcessed < num_requests) && (num_requests - countProcessed <= num_servers))
-		cout << "Total of " << num_requests - countProcessed << " unprocessed requests remain in webservers" << endl << endl;
-	else if (countProcessed < num_requests)
-		cout << "Total of " << num_requests - countProcessed << " unprocessed requests remain" << endl << endl;
+	if ((countProcessed < num_requests + countRandom) && (num_requests + countRandom - countProcessed <= num_servers))
+		cout << "Total of " << num_requests + countRandom - countProcessed << " unprocessed requests remain in webservers" << endl << endl;
+	else if (countProcessed < num_requests + countRandom)
+		cout << "Total of " << num_requests + countRandom - countProcessed << " unprocessed requests remain" << endl << endl;
 	
 	/*
 	Checks if requests currently in each webserver are finished after time limit reached
