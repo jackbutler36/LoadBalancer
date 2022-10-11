@@ -7,6 +7,10 @@
 #include <iostream>
 #include <string>
 #include <queue>
+#include <cstdlib>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
@@ -43,9 +47,25 @@ int loadbalancer::queueSize() {
 }
 
 int main(int argc, char *argv[]) {
-	request req = {"12.23.4", "43.1234.3", 24};
 	loadbalancer requestqueue = loadbalancer();
-	requestqueue.addRequest(req);
-	cout << "Testing queue size: " << requestqueue.queueSize() << endl;
+	srand(time(NULL));
+	
+	int num_requests = 200;
+	for (int i = 0; i < num_requests; i++) {
+		int rand1 = rand() % 100;
+		int rand2 = rand() % 100;
+		int rand3 = rand() % 100;
+		int rand4 = rand() % 100;
+		string ip1 = to_string(rand1) + "." + to_string(rand2) + "." + to_string(rand3) + "." + to_string(rand4);
+		int rand5 = rand() % 100;
+		int rand6 = rand() % 100;
+		int rand7 = rand() % 100;
+		int rand8 = rand() % 100;
+		int randTimeToRun = rand() % 1200;
+		string ip2 = to_string(rand5) + "." + to_string(rand6) + "." + to_string(rand7) + "." + to_string(rand8);
+		request temp_request = {ip1, ip2, randTimeToRun};
+		requestqueue.addRequest(temp_request);
+	}
+	cout << "queue size: " << requestqueue.queueSize() << endl;
 	return 0;
 }
