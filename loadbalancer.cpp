@@ -47,6 +47,7 @@ int loadbalancer::queueSize() {
 }
 
 int main(int argc, char *argv[]) {
+	
 	loadbalancer requestqueue = loadbalancer();
 	srand(time(NULL));
 	
@@ -67,5 +68,21 @@ int main(int argc, char *argv[]) {
 		requestqueue.addRequest(temp_request);
 	}
 	cout << "queue size: " << requestqueue.queueSize() << endl;
+	
+	int num_servers = 15;
+	int time_to_run = 10000;
+	if (argc == 3) {
+		num_servers = atoi(argv[1]);
+		time_to_run = atoi(argv[2]);
+	}
+	
+	webserver servers[num_servers];
+	char server_name = 'a';
+	for (int i = 0; i < num_servers; i++) {
+		webserver temp = webserver(server_name);
+		cout << "server " << server_name << " created." << endl;
+		servers[i] = temp;
+		server_name++;
+	}
 	return 0;
 }
