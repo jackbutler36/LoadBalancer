@@ -1,0 +1,123 @@
+\hypertarget{classloadbalancer}{}\section{loadbalancer Class Reference}
+\label{classloadbalancer}\index{loadbalancer@{loadbalancer}}
+
+
+{\ttfamily \#include $<$loadbalancer.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classloadbalancer_ad453fd2fc0c910f82ef31c18353fc774}{loadbalancer} ()
+\item 
+bool \hyperlink{classloadbalancer_a542b0b5b5759c074e3e8d1cbf1f33b52}{is\+Empty} ()
+\item 
+int \hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{get\+Time} ()
+\item 
+\hyperlink{structrequest}{request} \hyperlink{classloadbalancer_a3d1715e4b2218a7aa9ad74e3e4fa6167}{get\+Request} ()
+\item 
+void \hyperlink{classloadbalancer_a4d793bdf97c72b577ada58a774c3bddb}{pass\+Time} ()
+\item 
+void \hyperlink{classloadbalancer_a2c45d009dffc50f5d5d3a6c2b295311d}{add\+Request} (\hyperlink{structrequest}{request} req)
+\item 
+int \hyperlink{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}{queue\+Size} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classloadbalancer_ad453fd2fc0c910f82ef31c18353fc774}\label{classloadbalancer_ad453fd2fc0c910f82ef31c18353fc774}} 
+\index{loadbalancer@{loadbalancer}!loadbalancer@{loadbalancer}}
+\index{loadbalancer@{loadbalancer}!loadbalancer@{loadbalancer}}
+\subsubsection{\texorpdfstring{loadbalancer()}{loadbalancer()}}
+{\footnotesize\ttfamily loadbalancer\+::loadbalancer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}
+17                            \{
+18     sysTime = 0;
+19 \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classloadbalancer_a2c45d009dffc50f5d5d3a6c2b295311d}\label{classloadbalancer_a2c45d009dffc50f5d5d3a6c2b295311d}} 
+\index{loadbalancer@{loadbalancer}!add\+Request@{add\+Request}}
+\index{add\+Request@{add\+Request}!loadbalancer@{loadbalancer}}
+\subsubsection{\texorpdfstring{add\+Request()}{addRequest()}}
+{\footnotesize\ttfamily void loadbalancer\+::add\+Request (\begin{DoxyParamCaption}\item[{\hyperlink{structrequest}{request}}]{req }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}
+41                                          \{
+42     requests.push(req);
+43 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classloadbalancer_a3d1715e4b2218a7aa9ad74e3e4fa6167}\label{classloadbalancer_a3d1715e4b2218a7aa9ad74e3e4fa6167}} 
+\index{loadbalancer@{loadbalancer}!get\+Request@{get\+Request}}
+\index{get\+Request@{get\+Request}!loadbalancer@{loadbalancer}}
+\subsubsection{\texorpdfstring{get\+Request()}{getRequest()}}
+{\footnotesize\ttfamily \hyperlink{structrequest}{request} loadbalancer\+::get\+Request (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}
+29                                  \{
+30     \textcolor{keywordflow}{if} (!requests.empty()) \{
+31         \hyperlink{structrequest}{request} req = requests.front();
+32         requests.pop();
+33         \textcolor{keywordflow}{return} req;
+34     \}
+35 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}\label{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}} 
+\index{loadbalancer@{loadbalancer}!get\+Time@{get\+Time}}
+\index{get\+Time@{get\+Time}!loadbalancer@{loadbalancer}}
+\subsubsection{\texorpdfstring{get\+Time()}{getTime()}}
+{\footnotesize\ttfamily int loadbalancer\+::get\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}
+25                           \{
+26     \textcolor{keywordflow}{return} sysTime;
+27 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classloadbalancer_a542b0b5b5759c074e3e8d1cbf1f33b52}\label{classloadbalancer_a542b0b5b5759c074e3e8d1cbf1f33b52}} 
+\index{loadbalancer@{loadbalancer}!is\+Empty@{is\+Empty}}
+\index{is\+Empty@{is\+Empty}!loadbalancer@{loadbalancer}}
+\subsubsection{\texorpdfstring{is\+Empty()}{isEmpty()}}
+{\footnotesize\ttfamily bool loadbalancer\+::is\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}
+21                            \{
+22     \textcolor{keywordflow}{return} requests.empty();
+23 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classloadbalancer_a4d793bdf97c72b577ada58a774c3bddb}\label{classloadbalancer_a4d793bdf97c72b577ada58a774c3bddb}} 
+\index{loadbalancer@{loadbalancer}!pass\+Time@{pass\+Time}}
+\index{pass\+Time@{pass\+Time}!loadbalancer@{loadbalancer}}
+\subsubsection{\texorpdfstring{pass\+Time()}{passTime()}}
+{\footnotesize\ttfamily void loadbalancer\+::pass\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}
+37                             \{
+38     sysTime++;
+39 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}\label{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}} 
+\index{loadbalancer@{loadbalancer}!queue\+Size@{queue\+Size}}
+\index{queue\+Size@{queue\+Size}!loadbalancer@{loadbalancer}}
+\subsubsection{\texorpdfstring{queue\+Size()}{queueSize()}}
+{\footnotesize\ttfamily int loadbalancer\+::queue\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}
+45                             \{
+46     \textcolor{keywordflow}{return} requests.size();
+47 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{loadbalancer_8h}{loadbalancer.\+h}\item 
+\hyperlink{loadbalancer_8cpp}{loadbalancer.\+cpp}\end{DoxyCompactItemize}

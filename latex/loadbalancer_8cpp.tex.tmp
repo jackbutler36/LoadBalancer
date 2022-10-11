@@ -1,0 +1,163 @@
+\hypertarget{loadbalancer_8cpp}{}\section{loadbalancer.\+cpp File Reference}
+\label{loadbalancer_8cpp}\index{loadbalancer.\+cpp@{loadbalancer.\+cpp}}
+{\ttfamily \#include \char`\"{}loadbalancer.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$queue$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+Include dependency graph for loadbalancer.\+cpp\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{loadbalancer_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{loadbalancer_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{loadbalancer_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{loadbalancer.\+cpp@{loadbalancer.\+cpp}!main@{main}}
+\index{main@{main}!loadbalancer.\+cpp@{loadbalancer.\+cpp}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+servers\mbox{[}i\mbox{]}.has\+Request() $\vert$$\vert$ 
+\begin{DoxyCode}
+49                                  \{
+50     
+51     \hyperlink{classloadbalancer}{loadbalancer} requestqueue = \hyperlink{classloadbalancer}{loadbalancer}();
+52     srand(time(NULL)); \textcolor{comment}{// Ensures random seed on each run}
+53     
+54     \textcolor{keywordtype}{int} num\_requests = 200;
+55     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < num\_requests; i++) \{
+56         \textcolor{keywordtype}{int} rand1 = rand() % 100;
+57         \textcolor{keywordtype}{int} rand2 = rand() % 100;
+58         \textcolor{keywordtype}{int} rand3 = rand() % 100;
+59         \textcolor{keywordtype}{int} rand4 = rand() % 100;
+60         \textcolor{keywordtype}{string} ip1 = to\_string(rand1) + \textcolor{stringliteral}{"."} + to\_string(rand2) + \textcolor{stringliteral}{"."} + to\_string(rand3) + \textcolor{stringliteral}{"."} + to\_string(
+      rand4);
+61         \textcolor{keywordtype}{int} rand5 = rand() % 100;
+62         \textcolor{keywordtype}{int} rand6 = rand() % 100;
+63         \textcolor{keywordtype}{int} rand7 = rand() % 100;
+64         \textcolor{keywordtype}{int} rand8 = rand() % 100;
+65         \textcolor{keywordtype}{int} randTimeToRun = rand() % 1000 + 1;
+66         \textcolor{keywordtype}{string} ip2 = to\_string(rand5) + \textcolor{stringliteral}{"."} + to\_string(rand6) + \textcolor{stringliteral}{"."} + to\_string(rand7) + \textcolor{stringliteral}{"."} + to\_string(
+      rand8);
+67         \hyperlink{structrequest}{request} temp\_request = \{ip1, ip2, randTimeToRun\};
+68         requestqueue.\hyperlink{classloadbalancer_a2c45d009dffc50f5d5d3a6c2b295311d}{addRequest}(temp\_request);
+69     \}
+70     
+71     \textcolor{keywordtype}{int} num\_servers = 10; \textcolor{comment}{// Sets default num servers}
+72     \textcolor{keywordtype}{int} time\_to\_run = 10000; \textcolor{comment}{// Sets default time to run}
+73     \textcolor{keywordflow}{if} (argc == 3) \{
+74         num\_servers = atoi(argv[1]);
+75         time\_to\_run = atoi(argv[2]);
+76     \}
+77     
+78     \textcolor{keywordtype}{int} names [num\_servers]; \textcolor{comment}{// Used in last while loop}
+79     \hyperlink{classwebserver}{webserver} servers[num\_servers];
+80     \textcolor{keywordtype}{char} server\_name = \textcolor{charliteral}{'a'};
+81     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < num\_servers; i++) \{
+82         \hyperlink{classwebserver}{webserver} temp = \hyperlink{classwebserver}{webserver}(server\_name);
+83         servers[i] = temp;
+84         names[i] = 0;
+85         server\_name++;
+86     \}
+87     
+88     cout << \textcolor{stringliteral}{"Starting request queue size: "} << requestqueue.\hyperlink{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}{queueSize}() << endl;
+89     cout << \textcolor{stringliteral}{"Number of servers: "} << num\_servers << endl;
+90     cout << \textcolor{stringliteral}{"Total time to run: "} << time\_to\_run << endl;
+91     cout << \textcolor{stringliteral}{"Time range for each task: 1-1000 seconds"} << endl << endl;
+92     
+93     \textcolor{keywordtype}{int} count = 0; \textcolor{comment}{// Used for initial population of webservers}
+94     \textcolor{keywordtype}{int} countProcessed = 0; \textcolor{comment}{// Used to track number of processed requests}
+95     \textcolor{keywordflow}{while} ((!requestqueue.\hyperlink{classloadbalancer_a542b0b5b5759c074e3e8d1cbf1f33b52}{isEmpty}()) && (requestqueue.\hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{getTime}() < time\_to\_run)) \{
+96         \textcolor{keywordflow}{if} (count < num\_servers) \{
+97             servers[count].\hyperlink{classwebserver_a013eb6e8956b29bcc13608bb54bd2cc5}{addRequest}(requestqueue.\hyperlink{classloadbalancer_a3d1715e4b2218a7aa9ad74e3e4fa6167}{getRequest}(), requestqueue.
+      \hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{getTime}());
+98             count++;
+99             requestqueue.\hyperlink{classloadbalancer_a4d793bdf97c72b577ada58a774c3bddb}{passTime}();
+100             \textcolor{keywordflow}{continue};
+101         \}
+102         count++;
+103         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < num\_servers; i++) \{
+104             
+105             \textcolor{keywordflow}{if} ((!servers[i].hasRequest() || servers[i].isFinished(requestqueue.
+      \hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{getTime}())) && !requestqueue.\hyperlink{classloadbalancer_a542b0b5b5759c074e3e8d1cbf1f33b52}{isEmpty}()) \{
+106                 \hyperlink{structrequest}{request} currRequest = servers[i].\hyperlink{classwebserver_a8e97c299c64c0f9f46052a88888c7fc9}{getRequest}();
+107                 cout << \textcolor{stringliteral}{"Server "} << servers[i].\hyperlink{classwebserver_ab60b4b73f23fab34800070996212c497}{getName}() << \textcolor{stringliteral}{" received at time "} << servers[i].
+      \hyperlink{classwebserver_abaf7c05ca6d47a7800cfbcde62fa1744}{getStartTime}()
+108                 << \textcolor{stringliteral}{" and finished at time "} << requestqueue.\hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{getTime}() <<\textcolor{stringliteral}{" of process time "} << 
+      currRequest.\hyperlink{structrequest_aab0c9ef2df6d6c10f057a0066908cce2}{timeToProcess} << \textcolor{stringliteral}{" took "} <<  requestqueue.\hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{getTime}() - servers[i].
+      \hyperlink{classwebserver_abaf7c05ca6d47a7800cfbcde62fa1744}{getStartTime}() << \textcolor{stringliteral}{" from "} 
+109                 << currRequest.\hyperlink{structrequest_a3428fbfdaf3f562a4a288c0feb44719e}{ip\_in} << \textcolor{stringliteral}{" to "} << currRequest.\hyperlink{structrequest_ad1649db5f6048ae933ab05ccf1553ed9}{ip\_out} << endl;
+110                 servers[i].\hyperlink{classwebserver_a013eb6e8956b29bcc13608bb54bd2cc5}{addRequest}(requestqueue.\hyperlink{classloadbalancer_a3d1715e4b2218a7aa9ad74e3e4fa6167}{getRequest}(), requestqueue.
+      \hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{getTime}());
+111                 countProcessed++;
+112             \}
+113             
+114             requestqueue.\hyperlink{classloadbalancer_a4d793bdf97c72b577ada58a774c3bddb}{passTime}();
+115         \}
+116     \}
+117     
+118     cout << endl << \textcolor{stringliteral}{"Current requests processed and completed: "} << countProcessed << endl;
+119     cout << \textcolor{stringliteral}{"Ending request queue size: "} << requestqueue.\hyperlink{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}{queueSize}() << endl << endl;
+120     
+121     \textcolor{comment}{/*}
+122 \textcolor{comment}{    Checks if requests currently in each webserver are finished after queue empties, all requests in
+       webserver are not processed yet even if finished}
+123 \textcolor{comment}{    0: not finished yet}
+124 \textcolor{comment}{    1: finished but not processed yet}
+125 \textcolor{comment}{    }
+126 \textcolor{comment}{    for (int i = 0; i < num\_servers; i++) \{}
+127 \textcolor{comment}{        cout << "server " << servers[i].getName() << ": " << servers[i].isFinished(requestqueue.getTime())
+       << endl;}
+128 \textcolor{comment}{    \}}
+129 \textcolor{comment}{    */}
+130     
+131     \textcolor{comment}{// Clears processes still in webservers once queue is empty until time limit reached}
+132     \textcolor{keywordflow}{while} ((requestqueue.\hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{getTime}() < time\_to\_run)) \{
+133         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < num\_servers; i++) \{
+134             
+135             \textcolor{keywordflow}{if} (servers[i].isFinished(requestqueue.\hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{getTime}()) && (names[i] != 1)) \{ 
+136                 \hyperlink{structrequest}{request} currRequest = servers[i].\hyperlink{classwebserver_a8e97c299c64c0f9f46052a88888c7fc9}{getRequest}();
+137                 servers[i].\hyperlink{classwebserver_ab2c7ce0a757e7f5e6c9c33d1e7ff1cbc}{clearRequest}();
+138                 cout << \textcolor{stringliteral}{"Server "} << servers[i].\hyperlink{classwebserver_ab60b4b73f23fab34800070996212c497}{getName}() << \textcolor{stringliteral}{" received at time "} << servers[i].
+      \hyperlink{classwebserver_abaf7c05ca6d47a7800cfbcde62fa1744}{getStartTime}()
+139                 << \textcolor{stringliteral}{" and finished at time "} << requestqueue.\hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{getTime}() <<\textcolor{stringliteral}{" of process time "} << 
+      currRequest.\hyperlink{structrequest_aab0c9ef2df6d6c10f057a0066908cce2}{timeToProcess} << \textcolor{stringliteral}{" took "} <<  requestqueue.\hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{getTime}() - servers[i].
+      \hyperlink{classwebserver_abaf7c05ca6d47a7800cfbcde62fa1744}{getStartTime}() << \textcolor{stringliteral}{" from "} 
+140                 << currRequest.\hyperlink{structrequest_a3428fbfdaf3f562a4a288c0feb44719e}{ip\_in} << \textcolor{stringliteral}{" to "} << currRequest.\hyperlink{structrequest_ad1649db5f6048ae933ab05ccf1553ed9}{ip\_out} << endl;
+141                 names[i] = 1; \textcolor{comment}{// Ensures each webserver only cleared once}
+142                 countProcessed++;
+143             \}
+144             requestqueue.\hyperlink{classloadbalancer_a4d793bdf97c72b577ada58a774c3bddb}{passTime}();
+145         \}
+146     \}
+147     
+148     cout << endl << \textcolor{stringliteral}{"Total requests processed and completed: "} << countProcessed << endl;
+149     
+150     \textcolor{keywordflow}{if} ((countProcessed < num\_requests) && (num\_requests - countProcessed <= num\_servers))
+151         cout << \textcolor{stringliteral}{"Total of "} << num\_requests - countProcessed << \textcolor{stringliteral}{" unprocessed requests remain in webservers
+      "} << endl << endl;
+152     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (countProcessed < num\_requests)
+153         cout << \textcolor{stringliteral}{"Total of "} << num\_requests - countProcessed << \textcolor{stringliteral}{" unprocessed requests remain"} << endl << 
+      endl;
+154     
+155     \textcolor{comment}{/*}
+156 \textcolor{comment}{    Checks if requests currently in each webserver are finished after time limit reached}
+157 \textcolor{comment}{    0: not finished yet --> not processed}
+158 \textcolor{comment}{    1: finished}
+159 \textcolor{comment}{    }
+160 \textcolor{comment}{    for (int i = 0; i < num\_servers; i++) \{}
+161 \textcolor{comment}{        cout << "server " << servers[i].getName() << ": " << servers[i].isFinished(requestqueue.getTime())
+       << endl;}
+162 \textcolor{comment}{    \}}
+163 \textcolor{comment}{    */}
+164     
+165     \textcolor{keywordflow}{return} 0;
+166 \}
+\end{DoxyCode}
