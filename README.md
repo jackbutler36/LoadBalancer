@@ -5,7 +5,7 @@ CSCE 412 project 2
 
 g++ loadbalancer.h *.cpp
 
-### How to run code
+### How to run code:
 
 ./a.out
 
