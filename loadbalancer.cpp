@@ -39,6 +39,26 @@ int loadbalancer::getTime() {
 }
 
 /**
+* randomRequest function creates and returns a request with randomly generated attributes
+* @return temp_request the randomly generated request
+*/
+request randomRequest() {
+	int rand1 = rand() % 100;
+	int rand2 = rand() % 100;
+	int rand3 = rand() % 100;
+	int rand4 = rand() % 100;
+	string ip1 = to_string(rand1) + "." + to_string(rand2) + "." + to_string(rand3) + "." + to_string(rand4);
+	int rand5 = rand() % 100;
+	int rand6 = rand() % 100;
+	int rand7 = rand() % 100;
+	int rand8 = rand() % 100;
+	int randTimeToRun = rand() % 1000 + 1;
+	string ip2 = to_string(rand5) + "." + to_string(rand6) + "." + to_string(rand7) + "." + to_string(rand8);
+	request temp_request = {ip1, ip2, randTimeToRun};
+	return temp_request;
+}
+
+/**
 * getRequest function pops the next request off of the request queue if it is not empty
 * @return req the next request to be processed on queue, if queue not empty
 */
@@ -80,18 +100,7 @@ int main(int argc, char *argv[]) {
 	
 	int num_requests = 200;
 	for (int i = 0; i < num_requests; i++) {
-		int rand1 = rand() % 100;
-		int rand2 = rand() % 100;
-		int rand3 = rand() % 100;
-		int rand4 = rand() % 100;
-		string ip1 = to_string(rand1) + "." + to_string(rand2) + "." + to_string(rand3) + "." + to_string(rand4);
-		int rand5 = rand() % 100;
-		int rand6 = rand() % 100;
-		int rand7 = rand() % 100;
-		int rand8 = rand() % 100;
-		int randTimeToRun = rand() % 1000 + 1;
-		string ip2 = to_string(rand5) + "." + to_string(rand6) + "." + to_string(rand7) + "." + to_string(rand8);
-		request temp_request = {ip1, ip2, randTimeToRun};
+		request temp_request = randomRequest();
 		requestqueue.addRequest(temp_request);
 	}
 	
@@ -144,18 +153,7 @@ int main(int argc, char *argv[]) {
 		
 		if ((rand() % 30) == 15) {
 			countRandom++;
-			int rand1 = rand() % 100;
-			int rand2 = rand() % 100;
-			int rand3 = rand() % 100;
-			int rand4 = rand() % 100;
-			string ip1 = to_string(rand1) + "." + to_string(rand2) + "." + to_string(rand3) + "." + to_string(rand4);
-			int rand5 = rand() % 100;
-			int rand6 = rand() % 100;
-			int rand7 = rand() % 100;
-			int rand8 = rand() % 100;
-			int randTimeToRun = rand() % 1000 + 1;
-			string ip2 = to_string(rand5) + "." + to_string(rand6) + "." + to_string(rand7) + "." + to_string(rand8);
-			request temp_request = {ip1, ip2, randTimeToRun};
+			request temp_request = randomRequest();
 			requestqueue.addRequest(temp_request);
 			cout << "Added random request. Total number of requests now: " << countRandom + num_requests << endl;
 			}
