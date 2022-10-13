@@ -17,11 +17,11 @@ class loadbalancer {
 		loadbalancer();
 		bool isEmpty();
 		int getTime();
-		request randomRequest();
 		request getRequest();
 		void passTime();
 		void addRequest(request req);
 		int queueSize();
+		request randomRequest();
 };
 
 #endif

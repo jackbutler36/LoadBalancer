@@ -13,8 +13,6 @@ bool \hyperlink{classloadbalancer_a542b0b5b5759c074e3e8d1cbf1f33b52}{is\+Empty} 
 \item 
 int \hyperlink{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}{get\+Time} ()
 \item 
-\hyperlink{structrequest}{request} \hyperlink{classloadbalancer_abaa9c95170cbf3c1c3041b17d31df4c0}{random\+Request} ()
-\item 
 \hyperlink{structrequest}{request} \hyperlink{classloadbalancer_a3d1715e4b2218a7aa9ad74e3e4fa6167}{get\+Request} ()
 \item 
 void \hyperlink{classloadbalancer_a4d793bdf97c72b577ada58a774c3bddb}{pass\+Time} ()
@@ -22,6 +20,8 @@ void \hyperlink{classloadbalancer_a4d793bdf97c72b577ada58a774c3bddb}{pass\+Time}
 void \hyperlink{classloadbalancer_a2c45d009dffc50f5d5d3a6c2b295311d}{add\+Request} (\hyperlink{structrequest}{request} req)
 \item 
 int \hyperlink{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}{queue\+Size} ()
+\item 
+\hyperlink{structrequest}{request} \hyperlink{classloadbalancer_abaa9c95170cbf3c1c3041b17d31df4c0}{random\+Request} ()
 \end{DoxyCompactItemize}
 
 
@@ -54,9 +54,9 @@ add\+Request function adds a given request to the request queue
 \end{DoxyParams}
 
 \begin{DoxyCode}
-84                                          \{
-85     requests.push(req);
-86 \}
+64                                          \{
+65     requests.push(req);
+66 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{classloadbalancer_a3d1715e4b2218a7aa9ad74e3e4fa6167}\label{classloadbalancer_a3d1715e4b2218a7aa9ad74e3e4fa6167}} 
 \index{loadbalancer@{loadbalancer}!get\+Request@{get\+Request}}
@@ -69,13 +69,13 @@ req the next request to be processed on queue, if queue not empty
 \end{DoxyReturn}
 
 \begin{DoxyCode}
-65                                  \{
-66     \textcolor{keywordflow}{if} (!requests.empty()) \{
-67         \hyperlink{structrequest}{request} req = requests.front();
-68         requests.pop();
-69         \textcolor{keywordflow}{return} req;
-70     \}
-71 \}
+45                                  \{
+46     \textcolor{keywordflow}{if} (!requests.empty()) \{
+47         \hyperlink{structrequest}{request} req = requests.front();
+48         requests.pop();
+49         \textcolor{keywordflow}{return} req;
+50     \}
+51 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}\label{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}} 
 \index{loadbalancer@{loadbalancer}!get\+Time@{get\+Time}}
@@ -117,9 +117,9 @@ false otherwise
 
 pass\+Time mutator function controls the overall time structure for processing requests by incrementing private variable 
 \begin{DoxyCode}
-76                             \{
-77     sysTime++;
-78 \}
+56                             \{
+57     sysTime++;
+58 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}\label{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}} 
 \index{loadbalancer@{loadbalancer}!queue\+Size@{queue\+Size}}
@@ -132,9 +132,9 @@ the current number of requests in the request queue
 \end{DoxyReturn}
 
 \begin{DoxyCode}
-92                             \{
-93     \textcolor{keywordflow}{return} requests.size();
-94 \}
+72                             \{
+73     \textcolor{keywordflow}{return} requests.size();
+74 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{classloadbalancer_abaa9c95170cbf3c1c3041b17d31df4c0}\label{classloadbalancer_abaa9c95170cbf3c1c3041b17d31df4c0}} 
 \index{loadbalancer@{loadbalancer}!random\+Request@{random\+Request}}

@@ -76,8 +76,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a542b0b5b5759c074e3e8d1cbf1f33b52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc308893c7ab0fc8b92036deae7a2de9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classloadbalancer.html#afc308893c7ab0fc8b92036deae7a2de9">getTime</a> ()</td></tr>
 <tr class="separator:afc308893c7ab0fc8b92036deae7a2de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaa9c95170cbf3c1c3041b17d31df4c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrequest.html">request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classloadbalancer.html#abaa9c95170cbf3c1c3041b17d31df4c0">randomRequest</a> ()</td></tr>
-<tr class="separator:abaa9c95170cbf3c1c3041b17d31df4c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d1715e4b2218a7aa9ad74e3e4fa6167"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrequest.html">request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classloadbalancer.html#a3d1715e4b2218a7aa9ad74e3e4fa6167">getRequest</a> ()</td></tr>
 <tr class="separator:a3d1715e4b2218a7aa9ad74e3e4fa6167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d793bdf97c72b577ada58a774c3bddb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classloadbalancer.html#a4d793bdf97c72b577ada58a774c3bddb">passTime</a> ()</td></tr>
@@ -86,6 +84,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2c45d009dffc50f5d5d3a6c2b295311d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9716bb001708f3c7792df0d1c8689ab0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classloadbalancer.html#a9716bb001708f3c7792df0d1c8689ab0">queueSize</a> ()</td></tr>
 <tr class="separator:a9716bb001708f3c7792df0d1c8689ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaa9c95170cbf3c1c3041b17d31df4c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrequest.html">request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classloadbalancer.html#abaa9c95170cbf3c1c3041b17d31df4c0">randomRequest</a> ()</td></tr>
+<tr class="separator:abaa9c95170cbf3c1c3041b17d31df4c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad453fd2fc0c910f82ef31c18353fc774"></a>
@@ -128,7 +128,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                         {</div><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    requests.push(req);</div><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                         {</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    requests.push(req);</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a3d1715e4b2218a7aa9ad74e3e4fa6167"></a>
@@ -146,7 +146,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>getRequest function pops the next request off of the request queue if it is not empty </p><dl class="section return"><dt>Returns</dt><dd>req the next request to be processed on queue, if queue not empty </dd></dl>
-<div class="fragment"><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                 {</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (!requests.empty()) {</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <a class="code" href="structrequest.html">request</a> req = requests.front();</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        requests.pop();</div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">return</span> req;</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div><div class="ttc" id="structrequest_html"><div class="ttname"><a href="structrequest.html">request</a></div><div class="ttdef"><b>Definition:</b> request.cpp:8</div></div>
+<div class="fragment"><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                                 {</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> (!requests.empty()) {</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="structrequest.html">request</a> req = requests.front();</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        requests.pop();</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> req;</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div><div class="ttc" id="structrequest_html"><div class="ttname"><a href="structrequest.html">request</a></div><div class="ttdef"><b>Definition:</b> request.cpp:8</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -203,7 +203,7 @@ false otherwise </dd></dl>
       </table>
 </div><div class="memdoc">
 <p>passTime mutator function controls the overall time structure for processing requests by incrementing private variable </p>
-<div class="fragment"><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                            {</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    sysTime++;</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                            {</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    sysTime++;</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a9716bb001708f3c7792df0d1c8689ab0"></a>
@@ -221,7 +221,7 @@ false otherwise </dd></dl>
       </table>
 </div><div class="memdoc">
 <p>queueSize function returns the current size of request queue </p><dl class="section return"><dt>Returns</dt><dd>the current number of requests in the request queue </dd></dl>
-<div class="fragment"><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                            {</div><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">return</span> requests.size();</div><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                            {</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span> requests.size();</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="abaa9c95170cbf3c1c3041b17d31df4c0"></a>
