@@ -96,7 +96,7 @@ request randomRequest() {
 /**
 * main function contains program that sets up the number of servers (user input), 
 * the time you want to run the load balancer (user input), 
-* and generates a full queue (usually servers * 2, 200 in this case).
+* and generates a full queue (usually servers * 2, 100 in this case to reflect peak usage).
 * @param argc the number of command line arguments
 * @param argv the list of command line arguments
 * @return 0 on successful execution of program
@@ -106,17 +106,18 @@ int main(int argc, char *argv[]) {
 	loadbalancer requestqueue = loadbalancer();
 	srand(time(NULL)); // Ensures random seed on each run
 	
-	int num_requests = 200;
+	int num_servers = 10; // Sets default num servers
+	int time_to_run = 10000; // Sets default time to run
+	
+	if (argc == 3) { // Gets num servers and time to run from user input on command line
+		num_servers = atoi(argv[1]);
+		time_to_run = atoi(argv[2]);
+	}
+	
+	int num_requests = 100; // num_servers * 2; (Analyzing peak usage)
 	for (int i = 0; i < num_requests; i++) {
 		request temp_request = randomRequest();
 		requestqueue.addRequest(temp_request);
-	}
-	
-	int num_servers = 10; // Sets default num servers
-	int time_to_run = 10000; // Sets default time to run
-	if (argc == 3) {
-		num_servers = atoi(argv[1]);
-		time_to_run = atoi(argv[2]);
 	}
 	
 	int names [num_servers]; // Used in last while loop
@@ -148,7 +149,7 @@ int main(int argc, char *argv[]) {
 		count++;
 		
 		for (int i = 0; i < num_servers; i++) {
-			
+			// 
 			if ((!servers[i].hasRequest() || servers[i].isFinished(requestqueue.getTime())) && !requestqueue.isEmpty()) {
 				request currRequest = servers[i].getRequest();
 				cout << "Server " << servers[i].getName() << " received at time " << servers[i].getStartTime() << 
@@ -157,7 +158,7 @@ int main(int argc, char *argv[]) {
 				servers[i].addRequest(requestqueue.getRequest(), requestqueue.getTime());
 				countProcessed++;
 				
-				if ((rand() % 30) == 15) { // 1/30 chance to generate and add random request 
+				if ((rand() % 3) == 1) { // 1/3 chance to generate and add random request 
 					countRandom++;
 					request temp_request = randomRequest();
 					requestqueue.addRequest(temp_request);
