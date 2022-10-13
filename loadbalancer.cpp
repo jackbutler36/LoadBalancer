@@ -129,82 +129,67 @@ int main(int argc, char *argv[]) {
 	int count = 0; // Used for initial population of webservers
 	int countProcessed = 0; // Used to track number of processed requests
 	int countRandom = 0; // Used to track number of randomly created/ added requests
-	while ((!requestqueue.isEmpty()) && (requestqueue.getTime() < time_to_run)) {
-		if (count < num_servers) {
+	while (requestqueue.getTime() < time_to_run) {
+		
+		if (count < num_servers) { //Initial population of requests to empty webservers
 			servers[count].addRequest(requestqueue.getRequest(), requestqueue.getTime());
 			count++;
 			requestqueue.passTime();
 			continue;
 		}
 		count++;
+		
 		for (int i = 0; i < num_servers; i++) {
 			
 			if ((!servers[i].hasRequest() || servers[i].isFinished(requestqueue.getTime())) && !requestqueue.isEmpty()) {
 				request currRequest = servers[i].getRequest();
-				cout << "Server " << servers[i].getName() << " received at time " << servers[i].getStartTime()
-				<< " and finished at time " << requestqueue.getTime() <<" of process time " << currRequest.timeToProcess << " took " <<  requestqueue.getTime() - servers[i].getStartTime() << " from " 
-				<< currRequest.ip_in << " to " << currRequest.ip_out << endl;
+				cout << "Server " << servers[i].getName() << " received at time " << servers[i].getStartTime() << 
+				" and finished at time " << requestqueue.getTime() << " of process time " << currRequest.timeToProcess << " took " << 
+				requestqueue.getTime() - servers[i].getStartTime() << " from " << currRequest.ip_in << " to " << currRequest.ip_out << endl;
 				servers[i].addRequest(requestqueue.getRequest(), requestqueue.getTime());
+				countProcessed++;
+				
+				if ((rand() % 30) == 15) { // 1/30 chance to generate and add random request 
+					countRandom++;
+					request temp_request = randomRequest();
+					requestqueue.addRequest(temp_request);
+					cout << "Added random request. Total number of requests now: " << countRandom + num_requests << endl;
+				}
+			}
+			
+			// Clears processes still in webservers once queue is empty until time limit reached
+			if ((requestqueue.isEmpty()) && (servers[i].isFinished(requestqueue.getTime())) && (names[i] != 1)) {
+				request currRequest = servers[i].getRequest();
+				servers[i].clearRequest();
+				cout << "Server " << servers[i].getName() << " received at time " << servers[i].getStartTime() << 
+				" and finished at time " << requestqueue.getTime() << " of process time " << currRequest.timeToProcess << " took " << 
+				requestqueue.getTime() - servers[i].getStartTime() << " from " << currRequest.ip_in << " to " << currRequest.ip_out << endl;
+				names[i] = 1; // Ensures each webserver only cleared once
 				countProcessed++;
 			}
 			
 			requestqueue.passTime();
 		}
 		
-		if ((rand() % 30) == 15) {
-			countRandom++;
-			request temp_request = randomRequest();
-			requestqueue.addRequest(temp_request);
-			cout << "Added random request. Total number of requests now: " << countRandom + num_requests << endl;
-			}
 	}
 	
-	cout << endl << "Current requests processed and completed: " << countProcessed << endl;
-	cout << "Ending request queue size: " << requestqueue.queueSize() << endl << endl;
-	
-	/*
-	Checks if requests currently in each webserver are finished after queue empties, all requests in webserver are not processed yet even if finished
-	0: not finished yet
-	1: finished but not processed yet
-	
-	for (int i = 0; i < num_servers; i++) {
-		cout << "server " << servers[i].getName() << ": " << servers[i].isFinished(requestqueue.getTime()) << endl;
-	}
-	*/
-	
-	// Clears processes still in webservers once queue is empty until time limit reached
-	while ((requestqueue.getTime() < time_to_run)) {
-		for (int i = 0; i < num_servers; i++) {
-			
-			if (servers[i].isFinished(requestqueue.getTime()) && (names[i] != 1)) { //!servers[i].hasRequest() || 
-				request currRequest = servers[i].getRequest();
-				servers[i].clearRequest();
-				cout << "Server " << servers[i].getName() << " received at time " << servers[i].getStartTime()
-				<< " and finished at time " << requestqueue.getTime() <<" of process time " << currRequest.timeToProcess << " took " <<  requestqueue.getTime() - servers[i].getStartTime() << " from " 
-				<< currRequest.ip_in << " to " << currRequest.ip_out << endl;
-				names[i] = 1; // Ensures each webserver only cleared once
-				countProcessed++;
-			}
-			requestqueue.passTime();
-		}
-	}
-	
-	cout << endl << "Total requests processed and completed: " << countProcessed << endl;
+	cout << endl << "Ending request queue size: " << requestqueue.queueSize() << endl;
+	cout << "Total requests processed and completed: " << countProcessed << endl;
 	
 	if ((countProcessed < num_requests + countRandom) && (num_requests + countRandom - countProcessed <= num_servers))
 		cout << "Total of " << num_requests + countRandom - countProcessed << " unprocessed requests remain in webservers" << endl << endl;
 	else if (countProcessed < num_requests + countRandom)
-		cout << "Total of " << num_requests + countRandom - countProcessed << " unprocessed requests remain" << endl << endl;
+		cout << "Total of " << num_requests + countRandom - countProcessed << " unprocessed requests remain in request queue and webservers" << endl << endl;
 	
 	/*
 	Checks if requests currently in each webserver are finished after time limit reached
 	0: not finished yet --> not processed
 	1: finished
-	
-	for (int i = 0; i < num_servers; i++) {
-		cout << "server " << servers[i].getName() << ": " << servers[i].isFinished(requestqueue.getTime()) << endl;
-	}
 	*/
+	// for (int i = 0; i < num_servers; i++) {
+		// cout << "server " << servers[i].getName() << ": " << servers[i].isFinished(requestqueue.getTime()) << endl;
+	// }
+	
 	
 	return 0;
 }
