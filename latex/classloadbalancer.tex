@@ -30,11 +30,11 @@ int \hyperlink{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}{queue\+Size}
 \subsubsection{\texorpdfstring{loadbalancer()}{loadbalancer()}}
 {\footnotesize\ttfamily loadbalancer\+::loadbalancer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-
+loadbalancer default constructor 
 \begin{DoxyCode}
-17                            \{
-18     sysTime = 0;
-19 \}
+20                            \{
+21     sysTime = 0;
+22 \}
 \end{DoxyCode}
 
 
@@ -45,11 +45,16 @@ int \hyperlink{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}{queue\+Size}
 \subsubsection{\texorpdfstring{add\+Request()}{addRequest()}}
 {\footnotesize\ttfamily void loadbalancer\+::add\+Request (\begin{DoxyParamCaption}\item[{\hyperlink{structrequest}{request}}]{req }\end{DoxyParamCaption})}
 
+add\+Request function adds a given request to the request queue 
+\begin{DoxyParams}{Parameters}
+{\em req} & the request to be pushed to the request queue \\
+\hline
+\end{DoxyParams}
 
 \begin{DoxyCode}
-41                                          \{
-42     requests.push(req);
-43 \}
+64                                          \{
+65     requests.push(req);
+66 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{classloadbalancer_a3d1715e4b2218a7aa9ad74e3e4fa6167}\label{classloadbalancer_a3d1715e4b2218a7aa9ad74e3e4fa6167}} 
 \index{loadbalancer@{loadbalancer}!get\+Request@{get\+Request}}
@@ -57,15 +62,18 @@ int \hyperlink{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}{queue\+Size}
 \subsubsection{\texorpdfstring{get\+Request()}{getRequest()}}
 {\footnotesize\ttfamily \hyperlink{structrequest}{request} loadbalancer\+::get\+Request (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+get\+Request function pops the next request off of the request queue if it is not empty \begin{DoxyReturn}{Returns}
+req the next request to be processed on queue, if queue not empty 
+\end{DoxyReturn}
 
 \begin{DoxyCode}
-29                                  \{
-30     \textcolor{keywordflow}{if} (!requests.empty()) \{
-31         \hyperlink{structrequest}{request} req = requests.front();
-32         requests.pop();
-33         \textcolor{keywordflow}{return} req;
-34     \}
-35 \}
+45                                  \{
+46     \textcolor{keywordflow}{if} (!requests.empty()) \{
+47         \hyperlink{structrequest}{request} req = requests.front();
+48         requests.pop();
+49         \textcolor{keywordflow}{return} req;
+50     \}
+51 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}\label{classloadbalancer_afc308893c7ab0fc8b92036deae7a2de9}} 
 \index{loadbalancer@{loadbalancer}!get\+Time@{get\+Time}}
@@ -73,11 +81,14 @@ int \hyperlink{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}{queue\+Size}
 \subsubsection{\texorpdfstring{get\+Time()}{getTime()}}
 {\footnotesize\ttfamily int loadbalancer\+::get\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+get\+Time accessor function returns the loadbalancer\textquotesingle{}s private variable for current time \begin{DoxyReturn}{Returns}
+sys\+Time the current system\textquotesingle{}s time 
+\end{DoxyReturn}
 
 \begin{DoxyCode}
-25                           \{
-26     \textcolor{keywordflow}{return} sysTime;
-27 \}
+37                           \{
+38     \textcolor{keywordflow}{return} sysTime;
+39 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{classloadbalancer_a542b0b5b5759c074e3e8d1cbf1f33b52}\label{classloadbalancer_a542b0b5b5759c074e3e8d1cbf1f33b52}} 
 \index{loadbalancer@{loadbalancer}!is\+Empty@{is\+Empty}}
@@ -85,11 +96,16 @@ int \hyperlink{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}{queue\+Size}
 \subsubsection{\texorpdfstring{is\+Empty()}{isEmpty()}}
 {\footnotesize\ttfamily bool loadbalancer\+::is\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+is\+Empty function returns whether the current request queue is empty \begin{DoxyReturn}{Returns}
+true if request queue is empty 
+
+false otherwise 
+\end{DoxyReturn}
 
 \begin{DoxyCode}
-21                            \{
-22     \textcolor{keywordflow}{return} requests.empty();
-23 \}
+29                            \{
+30     \textcolor{keywordflow}{return} requests.empty();
+31 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{classloadbalancer_a4d793bdf97c72b577ada58a774c3bddb}\label{classloadbalancer_a4d793bdf97c72b577ada58a774c3bddb}} 
 \index{loadbalancer@{loadbalancer}!pass\+Time@{pass\+Time}}
@@ -97,11 +113,11 @@ int \hyperlink{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}{queue\+Size}
 \subsubsection{\texorpdfstring{pass\+Time()}{passTime()}}
 {\footnotesize\ttfamily void loadbalancer\+::pass\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-
+pass\+Time mutator function controls the overall time structure for processing requests by incrementing private variable 
 \begin{DoxyCode}
-37                             \{
-38     sysTime++;
-39 \}
+56                             \{
+57     sysTime++;
+58 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}\label{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}} 
 \index{loadbalancer@{loadbalancer}!queue\+Size@{queue\+Size}}
@@ -109,11 +125,14 @@ int \hyperlink{classloadbalancer_a9716bb001708f3c7792df0d1c8689ab0}{queue\+Size}
 \subsubsection{\texorpdfstring{queue\+Size()}{queueSize()}}
 {\footnotesize\ttfamily int loadbalancer\+::queue\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+queue\+Size function returns the current size of request queue \begin{DoxyReturn}{Returns}
+the current number of requests in the request queue 
+\end{DoxyReturn}
 
 \begin{DoxyCode}
-45                             \{
-46     \textcolor{keywordflow}{return} requests.size();
-47 \}
+72                             \{
+73     \textcolor{keywordflow}{return} requests.size();
+74 \}
 \end{DoxyCode}
 
 

@@ -1,7 +1,7 @@
 /*
 	File containing request struct
 */
-// #define REQUEST_CPP
+
 using namespace std;
 #include <string>
 

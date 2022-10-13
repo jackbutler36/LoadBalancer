@@ -100,7 +100,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                           {</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    sysTime = 0;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div></div><!-- fragment -->
+<p>loadbalancer default constructor </p>
+<div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                           {</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    sysTime = 0;</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -119,7 +120,13 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                         {</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    requests.push(req);</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div></div><!-- fragment -->
+<p>addRequest function adds a given request to the request queue </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">req</td><td>the request to be pushed to the request queue </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                         {</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    requests.push(req);</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a3d1715e4b2218a7aa9ad74e3e4fa6167"></a>
@@ -136,7 +143,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                                 {</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (!requests.empty()) {</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="structrequest.html">request</a> req = requests.front();</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        requests.pop();</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">return</span> req;</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div><div class="ttc" id="structrequest_html"><div class="ttname"><a href="structrequest.html">request</a></div><div class="ttdef"><b>Definition:</b> request.cpp:8</div></div>
+<p>getRequest function pops the next request off of the request queue if it is not empty </p><dl class="section return"><dt>Returns</dt><dd>req the next request to be processed on queue, if queue not empty </dd></dl>
+<div class="fragment"><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                                 {</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> (!requests.empty()) {</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="structrequest.html">request</a> req = requests.front();</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        requests.pop();</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> req;</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div><div class="ttc" id="structrequest_html"><div class="ttname"><a href="structrequest.html">request</a></div><div class="ttdef"><b>Definition:</b> request.cpp:8</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -154,7 +162,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                          {</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> sysTime;</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div></div><!-- fragment -->
+<p>getTime accessor function returns the loadbalancer's private variable for current time </p><dl class="section return"><dt>Returns</dt><dd>sysTime the current system's time </dd></dl>
+<div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                          {</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> sysTime;</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a542b0b5b5759c074e3e8d1cbf1f33b52"></a>
@@ -171,7 +180,10 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                           {</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">return</span> requests.empty();</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div></div><!-- fragment -->
+<p>isEmpty function returns whether the current request queue is empty </p><dl class="section return"><dt>Returns</dt><dd>true if request queue is empty </dd>
+<dd>
+false otherwise </dd></dl>
+<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                           {</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> requests.empty();</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a4d793bdf97c72b577ada58a774c3bddb"></a>
@@ -188,7 +200,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                            {</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    sysTime++;</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div></div><!-- fragment -->
+<p>passTime mutator function controls the overall time structure for processing requests by incrementing private variable </p>
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                            {</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    sysTime++;</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a9716bb001708f3c7792df0d1c8689ab0"></a>
@@ -205,7 +218,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                            {</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> requests.size();</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div></div><!-- fragment -->
+<p>queueSize function returns the current size of request queue </p><dl class="section return"><dt>Returns</dt><dd>the current number of requests in the request queue </dd></dl>
+<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                            {</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span> requests.size();</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>

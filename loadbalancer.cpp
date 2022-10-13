@@ -14,18 +14,34 @@
 
 using namespace std;
 
+/**
+* loadbalancer default constructor
+*/
 loadbalancer::loadbalancer() {
 	sysTime = 0;
 }
 
+/**
+* isEmpty function returns whether the current request queue is empty
+* @return true if request queue is empty
+* @return false otherwise
+*/
 bool loadbalancer::isEmpty() {
 	return requests.empty();
 }
 
+/**
+* getTime accessor function returns the loadbalancer's private variable for current time
+* @return sysTime the current system's time
+*/
 int loadbalancer::getTime() {
 	return sysTime;
 }
 
+/**
+* getRequest function pops the next request off of the request queue if it is not empty
+* @return req the next request to be processed on queue, if queue not empty
+*/
 request loadbalancer::getRequest() {
 	if (!requests.empty()) {
 		request req = requests.front();
@@ -34,14 +50,25 @@ request loadbalancer::getRequest() {
 	}
 }
 
+/**
+* passTime mutator function controls the overall time structure for processing requests by incrementing private variable
+*/
 void loadbalancer::passTime() {
 	sysTime++;
 }
 
+/**
+* addRequest function adds a given request to the request queue
+* @param req the request to be pushed to the request queue
+*/
 void loadbalancer::addRequest(request req) {
 	requests.push(req);
 }
 
+/**
+* queueSize function returns the current size of request queue
+* @return the current number of requests in the request queue
+*/
 int loadbalancer::queueSize() {
 	return requests.size();
 }
