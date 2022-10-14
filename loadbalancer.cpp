@@ -87,7 +87,7 @@ request randomRequest() {
 	int rand6 = rand() % 100;
 	int rand7 = rand() % 100;
 	int rand8 = rand() % 100;
-	int randTimeToRun = rand() % 1000 + 1;
+	int randTimeToRun = rand() % 250 + 1;
 	string ip2 = to_string(rand5) + "." + to_string(rand6) + "." + to_string(rand7) + "." + to_string(rand8);
 	request temp_request = {ip1, ip2, randTimeToRun};
 	return temp_request;
@@ -114,13 +114,13 @@ int main(int argc, char *argv[]) {
 		time_to_run = atoi(argv[2]);
 	}
 	
-	int num_requests = 100; // num_servers * 2; (Analyzing peak usage)
+	int num_requests = num_servers * 2; // num_servers * 2; (Analyzing peak usage)
 	for (int i = 0; i < num_requests; i++) {
 		request temp_request = randomRequest();
 		requestqueue.addRequest(temp_request);
 	}
 	
-	int names [num_servers]; // Used in last while loop
+	int names [num_servers]; // Used in last if in while loop
 	webserver servers[num_servers];
 	char server_name = 'a';
 	for (int i = 0; i < num_servers; i++) {
@@ -133,7 +133,7 @@ int main(int argc, char *argv[]) {
 	cout << "Starting request queue size: " << requestqueue.queueSize() << endl;
 	cout << "Number of servers: " << num_servers << endl;
 	cout << "Total time to run: " << time_to_run << endl;
-	cout << "Time range for each task: 1-1000 seconds" << endl << endl;
+	cout << "Time range for each task: 1-250 seconds" << endl << endl;
 	
 	int count = 0; // Used for initial population of webservers
 	int countProcessed = 0; // Used to track number of processed requests
@@ -157,14 +157,14 @@ int main(int argc, char *argv[]) {
 				requestqueue.getTime() - servers[i].getStartTime() << " from " << currRequest.ip_in << " to " << currRequest.ip_out << endl;
 				servers[i].addRequest(requestqueue.getRequest(), requestqueue.getTime());
 				countProcessed++;
-				
-				if ((rand() % 3) == 1) { // 1/3 chance to generate and add random request 
+			}
+				if ((rand() % 15) == 1) { // 1/3 chance to generate and add random request 
 					countRandom++;
 					request temp_request = randomRequest();
 					requestqueue.addRequest(temp_request);
 					cout << "Added random request. Total number of requests now: " << countRandom + num_requests << endl;
 				}
-			}
+			
 			
 			// Clears processes still in webservers once queue is empty until time limit reached
 			if ((requestqueue.isEmpty()) && (servers[i].isFinished(requestqueue.getTime())) && (names[i] != 1)) {
